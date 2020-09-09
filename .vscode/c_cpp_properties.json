@@ -3,22 +3,24 @@
         {
             "name": "Mac",
             "includePath": [
+                "${workspaceFolder}/**",
                 "/usr/local/include",
-                "/usr/local/include/eosiolib",
-                "/usr/include",
-                "/usr/local/Cellar/eosio.cdt/1.7.0/opt/eosio.cdt/include/eosiolib/contracts/",
-                "/usr/local/Cellar/eosio.cdt/1.7.0/opt/eosio.cdt/include/eosiolib/core/",
-                "/usr/local/Cellar/eosio.cdt/1.7.0/opt/eosio.cdt/include/",
-                "/usr/local/Cellar/ledgis/1.8.6/opt/ledgis/include/ledgislib/wasm-jit/include/",
-                "/usr/local/Cellar/ledgis/1.8.6/opt/ledgis/include/ledgislib/chain/include/",
-                "/usr/local/Cellar/ledgis/1.8.6/opt/ledgis/include/ledgislib/fc/include/",
-                "/usr/local/Cellar/ledgis/1.8.6/opt/ledgis/include/ledgislib/chainbase/include/",
-                "/usr/local/Cellar/ledgis/1.8.6/opt/ledgis/include/ledgislib/testing/include/",
-                "${workspaceFolder}/**"
+                "/usr/local/opt/openssl/include",
+                "/usr/local/Cellar/eosio.cdt/1.7.0/opt/eosio.cdt/include",
+                "/usr/local/Cellar/eosio.cdt/1.7.0/opt/eosio.cdt/include/eosiolib/capi",
+                "/usr/local/Cellar/eosio.cdt/1.7.0/opt/eosio.cdt/include/eosiolib/core",
+                "/usr/local/Cellar/eosio.cdt/1.7.0/opt/eosio.cdt/include/eosiolib/native",
+                "/usr/local/Cellar/eosio.cdt/1.7.0/opt/eosio.cdt/include/eosiolib/contracts",
+                "~/eosio/2.0/include",
+                "~/eosio/2.0/include/eosio",
+                "~/eosio/2.0/include/wasm-jit",
+                "~/eosio/2.0/include/eosio/vm",
+                "~/eosio/2.0/src/boost_1_71_0/include/"
             ],
             "defines": [],
             "macFrameworkPath": [
-                "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks"
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks",
+                "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
             ],
             "compilerPath": "/usr/bin/clang++",
             "cStandard": "c11",

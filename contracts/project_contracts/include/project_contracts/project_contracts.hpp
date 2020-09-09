@@ -17,9 +17,9 @@
  */
 
 #include <eosio/asset.hpp>
+#include <eosio/crypto.hpp>
 #include <eosio/eosio.hpp>
 #include <eosio/print.hpp>
-#include <eosio/crypto.hpp>
 #include <eosio/singleton.hpp>
 
 #include "../../../types.h"
@@ -30,41 +30,38 @@
 #define TEST
 
 namespace project_contracts {
-struct [[eosio::table("config"), eosio::contract("project_contracts")]] ConfigInfo {
-    eosio::public_key PubKey;
-    eosio::time_point lastUpdate;
-    EOSLIB_SERIALIZE(ConfigInfo, (PubKey)(lastUpdate));
-};
-
-typedef eosio::singleton<name("config"), ConfigInfo> configSingleton;
-
-class [[eosio::contract("project_contracts")]] project_contracts : public eosio::contract {
-   private:
-    configSingleton _config;
-    ConfigInfo _cstate;
-    ConfigInfo getDefaultConfig() {
-        return ConfigInfo{
-            eosio::public_key(),
-            time::currentTimePoint()};
+    struct [[eosio::table("config"),
+             eosio::contract("project_contracts")]] ConfigInfo {
+        eosio::public_key PubKey;
+        eosio::time_point lastUpdate;
+        EOSLIB_SERIALIZE(ConfigInfo, (PubKey)(lastUpdate));
     };
-    // receive_recipient에 따른 핸들러(ex. transfer)
-    template <typename T>
-    void transferEventHandler(T func);
-    // TODO: 핸들러가 실행할 내부 function 정의
 
-    // TODO: 내부 private method 정의
-   public:
-    project_contracts(eosio::name receiver, eosio::name code, eosio::datastream<const char*> ds)
-        : contract(receiver, code, ds), _config(receiver, receiver.value) {
-        _cstate = _config.exists() ? _config.get() : getDefaultConfig();
-    }
-    ~project_contracts() {
-        _config.set(_cstate, get_self());
-    }
-    [[eosio::action]] void clean();
+    typedef eosio::singleton<name("config"), ConfigInfo> configSingleton;
 
-    [[eosio::action]] void temp();
+    class [[eosio::contract("project_contracts")]] project_contracts : public eosio::contract {
+      private:
+        configSingleton _config;
+        ConfigInfo      _cstate;
+        ConfigInfo      getDefaultConfig() {
+            return ConfigInfo { eosio::public_key(), time::currentTimePoint() };
+        };
+        // receive_recipient에 따른 핸들러(ex. transfer)
+        template <typename T> void transferEventHandler(T func);
+        // TODO: 핸들러가 실행할 내부 function 정의
 
-    [[eosio::on_notify("led.token::transfer")]] void transferevnt();
-};
-};  // namespace project_contracts
+        // TODO: 내부 private method 정의
+      public:
+        project_contracts(eosio::name receiver, eosio::name code,
+                          eosio::datastream<const char *> ds)
+            : contract(receiver, code, ds), _config(receiver, receiver.value) {
+            _cstate = _config.exists() ? _config.get() : getDefaultConfig();
+        }
+        ~project_contracts() { _config.set(_cstate, get_self()); }
+        [[eosio::action]] void clean();
+
+        [[eosio::action]] void temp();
+
+        [[eosio::on_notify("led.token::transfer")]] void transferevnt();
+    };
+};   // namespace project_contracts
